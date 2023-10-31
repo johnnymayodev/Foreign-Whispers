@@ -1,38 +1,62 @@
+@import url(normalize.css);
+
 :root {
-    --background-color: #f5f5f5;
-    --primary-color: #f44336;
-    --primary-color-light: #e57373;
-    --primary-color-dark: #d32f2f;
-    --text-color: #212121;
-    --accent-color: #ff9800;
-    --primary-text-color: #212121;
-    --secondary-text-color: #757575;
-    --divider-color: #bdbdbd;
-    --disabled-text-color: #bdbdbd;
+  --background-color: #f5f5f5;
+  --primary-color: #f44336;
+  --primary-color-light: #e57373;
+  --primary-color-dark: #d32f2f;
+  --text-color: #212121;
+  --accent-color: #ff9800;
+  --primary-text-color: #212121;
+  --secondary-text-color: #757575;
+  --divider-color: #bdbdbd;
+  --disabled-text-color: #bdbdbd;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --background-color: #212121;
-        --primary-color: #f44336;
-        --primary-color-light: #e57373;
-        --primary-color-dark: #d32f2f;
-        --text-color: #ffffff;
-        --accent-color: #ff9800;
-        --primary-text-color: #ffffff;
-        --secondary-text-color: #ffffff;
-        --divider-color: #ffffff;
-        --disabled-text-color: #ffffff;
-    }
+  :root {
+    --background-color: #212121;
+    --primary-color: #f44336;
+    --primary-color-light: #e57373;
+    --primary-color-dark: #d32f2f;
+    --text-color: #ffffff;
+    --accent-color: #ff9800;
+    --primary-text-color: #ffffff;
+    --secondary-text-color: #ffffff;
+    --divider-color: #ffffff;
+    --disabled-text-color: #ffffff;
+  }
+}
+
+* {
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Ubuntu Mono";
+  margin: 0.4rem;
+  padding: 0;
+}
+
+footer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+footer > * {
+  margin: 0 2rem;
 }
