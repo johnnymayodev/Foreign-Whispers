@@ -1,5 +1,6 @@
 from flask import Flask, current_app, request, jsonify
 import libraries.milestone_1 as m1
+import libraries.milestone_2 as m2
 
 app = Flask(__name__, static_folder="/")
 
@@ -27,6 +28,12 @@ def api(arg):
     elif arg == "milestone1":
         try:
             m1.main(app)
+            return "OK"
+        except Exception as e:
+            return str(e)
+    elif arg == "milestone2":
+        try:
+            m2.main(app)
             return "OK"
         except Exception as e:
             return str(e)
