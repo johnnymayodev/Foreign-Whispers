@@ -29,16 +29,49 @@
 }
 
 * {
-  padding: 0 !important;
-  margin: 0 !important;
+  padding: 0;
+  margin: 0;
 }
 
 body {
+  width: 40%;
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: "Ubuntu Mono";
-  margin: 0.4rem;
+  margin: 1rem;
   padding: 0;
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 1rem 0;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
+button {
+  font-family: "Ubuntu Mono";
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  background-color: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
 }
 
 footer {
@@ -50,13 +83,9 @@ footer {
   background-color: var(--primary-color);
   color: #fff;
   font-size: 12px;
-  padding: 10px 0;
+  padding: 4px 0;
   margin: 0;
   position: absolute;
   bottom: 0;
   left: 0;
-}
-
-footer > * {
-  margin: 0 2rem;
 }

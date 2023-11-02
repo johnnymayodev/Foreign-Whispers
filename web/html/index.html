@@ -19,25 +19,37 @@
 
     <div id="content">
       <!-- enter a youtube url -->
-      <input type="text" id="url" placeholder="Enter a youtube url" />
-      <button id="submit">Submit</button>
+      <div class="milestone">
+        <p>
+          Milestone 1: Write a python API that will download the video and its
+          closed captions from youtube.
+        </p>
+        <p>
+          Clicking the 'Milestone 1' button will download 10 videos from the
+          <a
+            href="https://www.youtube.com/playlist?list=PLI1yx5Z0Lrv77D_g1tvF9u3FVqnrNbCRL"
+            target="_blank"
+            >60 Minutes Interview Playlist</a
+          >
+          and save them to the a folder with the name of the playlist id. Inside
+          the folder there will be sub folders with the names of the video ids
+          for each video. Inside each video folder there will be folders for the
+          captions and videos.
+        </p>
+        <p>
+          This should take around
+          <span style="color: var(--primary-color)">2 minutes</span> with a
+          internet speed of 700 Mbps.
+        </p>
+        <button onclick="milestone_1()">Milestone 1</button>
+      </div>
+
+      <!-- <button onclick="milestone_2()">Milestone 2</button> -->
     </div>
 
     <footer>
-      <span>Authors: johnnymayodev & animalracer3 </span>
-      <span
-        >Made with
-        <img
-          src="/web/assets/icons/icons8-heart-100.png"
-          alt="Love"
-          style="
-            margin: 0;
-            padding: 0;
-            width: 12px;
-            height: 12px;
-            transform: translateY(2px);
-          "
-      /></span>
+      <span>Authors: johnnymayodev & animalracer3</span>
+      <span>Class: NJIT CS 370: Intro to Artifical Intelligence</span>
       <span>Icons by Icons8</span>
     </footer>
   </body>
