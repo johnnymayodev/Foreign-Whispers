@@ -2,4 +2,4 @@ import openai
 
 
 def main(app):
-    return {"Milestone 1": "Done"}
+    return {"Milestone 2": "Done"}
