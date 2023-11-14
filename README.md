@@ -7,6 +7,7 @@
 #### Milestone 1
 
 [pytube](https://pytube.io/en/latest/)
+
 [YouTube Transcript/Subtitle API](https://pypi.org/project/youtube-transcript-api/)
 
 ```bash
@@ -17,6 +18,7 @@ pip install youtube-transcript-api
 #### Milestone 2
 
 [MoviePy](https://zulko.github.io/moviepy/)
+
 [openai/whisper](https://github.com/openai/whisper/tree/main)
 
 ```bash
