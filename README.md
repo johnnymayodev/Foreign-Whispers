@@ -77,4 +77,4 @@ cd /path/to/dir
 python3 ./main.py
 ```
 
-Running the script will create new folders in the current directory (where main.py is saved).
+Running the script will create new folders in the current directory (where you're running the script from).
