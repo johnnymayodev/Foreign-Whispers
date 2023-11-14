@@ -1,8 +1,8 @@
 # Foreign Whispers
 
 ## Authors
-* [johnnymayodev](https://github.com/johnnymayodev)
 * [animalracer3](https://github.com/AnimalRacer3)
+* [johnnymayodev](https://github.com/johnnymayodev)
 
 ## Dependencies
 
