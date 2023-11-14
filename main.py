@@ -54,5 +54,5 @@ if __name__ == "__main__":
 
     translated_subtitles = m3_response[2]
 
-    print(f"Done.\nTime elapsed: {round((time.time() - start), 4)} seconds")
+    print(f"Done.\nTotal time elapsed: {round((time.time() - start), 4)} seconds")
     exit(0)
