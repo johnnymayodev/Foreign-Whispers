@@ -1,5 +1,9 @@
 # Foreign Whispers
 
+## Authors
+* [johnnymayodev](https://github.com/johnnymayodev)
+* [animalracer3](https://github.com/AnimalRacer3)
+
 ## Dependencies
 
 ### Python (pip)
