@@ -55,12 +55,14 @@ def main(video_id):
             return ["Failed", time.time() - start, f"Error: Failed to save audio to file: {e}."]
 
     # load model
+    print("Loading whisper...")
     try:
         model = whisper.load_model("base")
     except Exception as e:
         return ["Failed", time.time() - start, f"Error: Failed to load model: {e}."]
 
     # generate subtitles from the audio
+    print(f"Generating subtitles for video {video_id}...")
     try:
         generated_subtitles = model.transcribe(save_path + "audio.mp3")
     except Exception as e:
