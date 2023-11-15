@@ -7,9 +7,9 @@
 
 ## Warning
 
-Running on macOS is not recommended. First, ensure that you have downloaded all the dependancies (including FFmpeg).
+Running on macOS is not recommended. First, ensure that you have downloaded all the [dependancies](#dependencies) (including FFmpeg).
 Second, if you're getting an error about FFmpeg not being found, then you need to add FFmpeg to your PATH.
-For example, if you installed FFmpeg using Homebrew, then you can add the following lines of code to **line 5** of `libraries/milestone_2.py`:
+For example, if you installed FFmpeg using [Homebrew](https://brew.sh/), then you can add the following lines of code to **line 5** of `libraries/milestone_2.py`:
 
 ```python
 ffmpeg_path = "/opt/homebrew/bin/ffmpeg"
