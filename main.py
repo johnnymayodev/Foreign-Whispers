@@ -31,6 +31,12 @@ if __name__ == "__main__":
     print("\nEnter a YouTube video URL (leave blank for a pre-set URL):")
     new_video_url = input()
     if new_video_url != "":
+
+        if "https://www.youtube.com/watch?v=" not in new_video_url:
+            print("Invalid URL. Please try again.")
+            print("Example: https://www.youtube.com/watch?v=bNKdlnoAqIs")
+            exit(1)
+
         video_url = new_video_url
 
     print("Enter a language to translate to (leave blank for a pre-set language):")
