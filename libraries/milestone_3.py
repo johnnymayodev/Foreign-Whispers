@@ -11,7 +11,6 @@ def main(video_id, subtitles_in_english, language):
 
     from_code = "en"
 
-    # translation = ""
     translations = subtitles_in_english
 
     try:
