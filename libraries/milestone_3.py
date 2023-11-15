@@ -1,6 +1,7 @@
 import os
 import time
-import json
+import pickle
+from copy import deepcopy
 
 import argostranslate.package
 import argostranslate.translate
@@ -11,7 +12,7 @@ def main(video_id, subtitles_in_english, language):
 
     from_code = "en"
 
-    translations = subtitles_in_english
+    translations = deepcopy(subtitles_in_english)
 
     try:
         os.mkdir("Milestone3/")
@@ -33,7 +34,7 @@ def main(video_id, subtitles_in_english, language):
         with open(
             f"Milestone3/{video_id}/{language}/translated_subtitles.pickle", "rb"
         ) as f:
-            translations = json.load(f)
+            translations = pickle.load(f)
         return ["Success", time.time() - start, translations]
 
     argostranslate.package.update_package_index()
@@ -61,16 +62,8 @@ def main(video_id, subtitles_in_english, language):
         for key, value in translations[subtitle].items():
             if key == "text":
                 try:
-                    translations.update(
-                        {
-                            subtitle: {
-                                "start": translations[subtitle]["start"],
-                                "end": translations[subtitle]["end"],
-                                "text": translator.translate(
-                                    value, from_code, language
-                                ),
-                            }
-                        }
+                    translations[subtitle]["text"] = translator.translate(
+                        value, from_code, language
                     )
                 except Exception as e:
                     return [
@@ -84,7 +77,7 @@ def main(video_id, subtitles_in_english, language):
         with open(
             f"Milestone3/{video_id}/{language}/translated_subtitles.pickle", "wb"
         ) as f:
-            json.dump(translations, f)
+            pickle.dump(translations, f)
     except Exception as e:
         return [
             "Failed",
