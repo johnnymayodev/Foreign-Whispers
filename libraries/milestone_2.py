@@ -71,7 +71,14 @@ def main(video_id):
             f"Error: Failed to generate subtitles: {e}.",
         ]
 
-    generated_subtitles = dict_to_dict(generated_subtitles)
+    try:
+        generated_subtitles = dict_to_dict(generated_subtitles)
+    except Exception as e:
+        return [
+            "Failed",
+            time.time() - start,
+            f"Error: Failed to clean generated subtitles: {e}.",
+        ]
 
     # save the generated subtitles to a file
     try:
