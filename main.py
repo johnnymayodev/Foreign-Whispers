@@ -1,4 +1,3 @@
-import os
 import time
 
 import libraries.milestone_1 as m1
@@ -13,19 +12,15 @@ if not __name__ == "__main__":
     exit(1)
 
 if __name__ == "__main__":
-    print("Are you running on a Mac? (y/n)")
-    if input() == "y":
-        ffmpeg_path = "/opt/homebrew/bin/ffmpeg"
-        os.environ["PATH"] += f":{os.path.dirname(ffmpeg_path)}"
-        os.environ["IMAGEIO_FFMPEG_EXE"] = ffmpeg_path
-
     print("\nEnter a YouTube video URL (leave blank for a pre-set URL):")
-    if input() != "":
-        video_url = input()
+    new_video_url = input()
+    if new_video_url != "":
+        video_url = new_video_url
 
     print("Enter a language to translate to (leave blank for a pre-set language):")
-    if input() != "":
-        language_to_translate_to = input()
+    new_language_to_translate_to = input()
+    if new_language_to_translate_to != "":
+        language_to_translate_to = new_language_to_translate_to
 
     start = time.time()
     print("\nStarting...")

@@ -1,7 +1,7 @@
 import os
 import math
 import time
-import pickle
+import json
 
 import whisper
 import moviepy.editor as mp
@@ -27,7 +27,7 @@ def main(video_id):
     if os.path.exists(save_path + "generated_subtitles.pickle"):
         print(f"Video {video_id} already has generated subtitles")
         with open(save_path + "generated_subtitles.pickle", "rb") as f:
-            generated_subtitles = pickle.load(f)
+            generated_subtitles = json.load(f)
         return ["Success", time.time() - start, generated_subtitles]
 
     if os.path.exists(save_path + "audio.mp3"):
@@ -83,7 +83,7 @@ def main(video_id):
     # save the generated subtitles to a file
     try:
         with open(f"Milestone2/{video_id}/generated_subtitles.pickle", "wb") as f:
-            pickle.dump(generated_subtitles, f)
+            json.dump(generated_subtitles, f)
     except Exception as e:
         return [
             "Failed",

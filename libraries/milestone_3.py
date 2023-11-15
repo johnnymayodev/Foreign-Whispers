@@ -1,6 +1,6 @@
 import os
 import time
-import pickle
+import json
 
 import argostranslate.package
 import argostranslate.translate
@@ -17,7 +17,7 @@ def main(video_id, subtitles_in_english, language):
         os.mkdir("Milestone3/")
     except FileExistsError:
         pass
-    
+
     try:
         os.mkdir(f"Milestone3/{video_id}/")
     except FileExistsError:
@@ -30,8 +30,10 @@ def main(video_id, subtitles_in_english, language):
 
     if os.path.exists(f"Milestone3/{video_id}/{language}/translated_subtitles.pickle"):
         print(f"Video {video_id} already has translated subtitles")
-        with open(f"Milestone3/{video_id}/{language}/translated_subtitles.pickle", "rb") as f:
-            translations = pickle.load(f)
+        with open(
+            f"Milestone3/{video_id}/{language}/translated_subtitles.pickle", "rb"
+        ) as f:
+            translations = json.load(f)
         return ["Success", time.time() - start, translations]
 
     argostranslate.package.update_package_index()
@@ -48,26 +50,46 @@ def main(video_id, subtitles_in_english, language):
     try:
         translator = argostranslate.translate
     except Exception as e:
-        return ["Failed", time.time() - start, f"Error: Failed to make translator: {e}."]
+        return [
+            "Failed",
+            time.time() - start,
+            f"Error: Failed to make translator: {e}.",
+        ]
 
     print(f"Translating subtitles to {language}...")
     for subtitle in translations:
         for key, value in translations[subtitle].items():
             if key == "text":
                 try:
-                    translations.update({subtitle: {
-                        "start": translations[subtitle]["start"],
-                        "end": translations[subtitle]["end"],
-                        "text": translator.translate(value, from_code, language)
-                    }})
+                    translations.update(
+                        {
+                            subtitle: {
+                                "start": translations[subtitle]["start"],
+                                "end": translations[subtitle]["end"],
+                                "text": translator.translate(
+                                    value, from_code, language
+                                ),
+                            }
+                        }
+                    )
                 except Exception as e:
-                    return ["Failed", time.time() - start, f"Error: Failed to translate: {e}."]                
+                    return [
+                        "Failed",
+                        time.time() - start,
+                        f"Error: Failed to translate: {e}.",
+                    ]
 
     # save the translated subtitles to a file
     try:
-        with open(f"Milestone3/{video_id}/{language}/translated_subtitles.pickle", "wb") as f:
-            pickle.dump(translations, f)
+        with open(
+            f"Milestone3/{video_id}/{language}/translated_subtitles.pickle", "wb"
+        ) as f:
+            json.dump(translations, f)
     except Exception as e:
-        return ["Failed", time.time() - start, f"Error: Failed to save translated subtitles to file: {e}."]
-    
+        return [
+            "Failed",
+            time.time() - start,
+            f"Error: Failed to save translated subtitles to file: {e}.",
+        ]
+
     return ["Success", time.time() - start, translations]
