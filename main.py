@@ -9,6 +9,7 @@ language_to_translate_to = "el"  # Greek
 
 popular_languages = {
     "greek": "el",
+    "polish": "pl",
     "hindi": "hi",
     "german": "de",
     "english": "en",
