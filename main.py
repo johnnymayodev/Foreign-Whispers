@@ -3,6 +3,8 @@ import time
 import libraries.milestone_1 as m1
 import libraries.milestone_2 as m2
 import libraries.milestone_3 as m3
+import libraries.milestone_4 as m4
+import libraries.milestone_5 as m5
 
 video_url = "https://www.youtube.com/watch?v=bNKdlnoAqIs"  # Bill Gates: The 2021 60 Minutes interview
 language_to_translate_to = "el"  # Greek
