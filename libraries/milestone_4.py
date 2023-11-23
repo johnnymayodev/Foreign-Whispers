@@ -1,65 +1,70 @@
 import os
-import shutil
 import time
 import pickle
 
-import pyttsx3 #9.0.1
-engine = pyttsx3.init()
-engine.setProperty('rate', 125)
-engine.setProperty('volume', 0.7)
-voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[0].id) 
 
-if os.path.exists("audio"):
-    shutil.rmtree("audio")
-os.mkdir("audio")
+def main(video_id, language):
+    start = time.time()
 
-# def main(dictionary, language):
-#     text = dictionary_to_text(dictionary)
+    save_path = f"Milestone4/{video_id}/{language}/audio/voice_over.mp3"
 
+    try:
+        os.mkdir("Milestone4/")
+    except FileExistsError:
+        pass
 
+    try:
+        os.mkdir(f"Milestone4/{video_id}/")
+    except FileExistsError:
+        pass
 
-#     start_time = time.time()
-    
+    try:
+        os.mkdir(f"Milestone4/{video_id}/{language}/")
+    except FileExistsError:
+        pass
 
+    try:
+        os.mkdir(f"Milestone4/{video_id}/{language}/audio/")
+    except FileExistsError:
+        pass
 
-#     end_time = time.time()
-#     print("Time taken: ", round(end_time - start_time, 2))
+    if os.path.exists(save_path):
+        print("Voice over already exists, skipping...")
+        return
 
-# def dictionary_to_text(dictionary):
+    try:
+        pass 
+        # Pick TTS model
+    except Exception as e:
+        return ["Failed", time.time() - start, f"Failed to load TTS model: {e}"]
 
-#     pause = " . . . . " # 1 second pause
-#     text = dictionary[0]['text'] 
+    # this is already a dictionary
+    translations = pickle.load(open(f"Milestone3/{video_id}/{language}/translated_subtitles.pickle", "rb"))
 
-#     for i in range(1, len(dictionary)):
-#         gap = dictionary[i]['start'] - dictionary[i-1]['end']
-#         text += pause * gap
-#         text += dictionary[i]['text']
+    # not sure if a list or str is better for this part
+    # ---- LIST ----
+    translations_as_list = []
 
-#     return text 
+    for i in range(len(translations)):
+        translations_as_list.append(translations[i]['text'])
 
-if __name__ == "__main__":
+    # ---- STRING ----
+    translations_as_str = ""
 
-    myDict = {
-        0: {
-            'start': 0,
-            'end': 7,
-            'text': 'Bill Gates helped usher in the digital revolution at Microsoft and has spent the decade since'
-        },
-        1: {
-            'start': 8,
-            'end': 12,
-            'text': "exploring and investing in innovative solutions to some of the world's toughest problems",
-        },
-        2: {
-            'start': 13,
-            'end': 18,
-            'text': ' global poverty, disease, and the coronavirus pandemic, which he spent nearly $2 billion',
-        },
-    }
+    for i in range(len(translations)):
+        translations_as_str += translations[i]['text'] + " "
 
-    language = "en"
+    try:
+        pass
+        # use the TTS model to generate audio
+    except Exception as e:
+        return ["Failed", time.time() - start, f"Failed to generate audio: {e}"]
 
-    # main(myDict, language)
+    try:
+        pass
+        # save the audio file 
+        # save_path -> (Milestone4/{video_id}/{language}/audio/voice_over.mp3)
+    except Exception as e:
+        return ["Failed", time.time() - start, f"Failed to save audio: {e}"]
 
-    
+    return ["Success", time.time() - start, save_path]

@@ -89,5 +89,15 @@ if __name__ == "__main__":
 
     translated_subtitles = m3_response[2]
 
+    # Milestone 4
+    m4_response = m4.main(video_id, language_to_translate_to)
+    print(f"Milestone 4 completed in {round(m4_response[1], 4)} seconds\n")
+
+    if m4_response[0] == "Failed":
+        print(m4_response[2])
+        exit(1) 
+
+    voice_over_path = m4_response[2]
+
     print(f"Done.\nTotal time elapsed: {round((time.time() - start), 4)} seconds")
     exit(0)
