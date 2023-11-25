@@ -52,6 +52,17 @@ pip install openai-whisper
 pip install argostranslate
 ```
 
+#### Milestone 4
+
+
+[coqui TTS](https://github.com/coqui-ai/TTS)
+[pydub](http://pydub.com/)
+
+```bash
+pip install TTS
+pip install pydub
+```
+
 ### Command Line Tools
 
 #### Milestone 2
