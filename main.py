@@ -7,10 +7,9 @@ import libraries.milestone_4 as m4
 import libraries.milestone_5 as m5
 
 video_url = "https://www.youtube.com/watch?v=bNKdlnoAqIs"  # Bill Gates: The 2021 60 Minutes interview
-language_to_translate_to = "el"  # Greek
+language_to_translate_to = "es"  # Spanish
 
 popular_languages = {
-    "greek": "el",
     "polish": "pl",
     "hindi": "hi",
     "german": "de",
