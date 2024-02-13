@@ -1,0 +1,53 @@
+body {
+    background-color: black;
+    color: white;
+
+    font-family: sans-serif;
+}
+
+.subtitle {
+    padding: 2px;
+
+    background-color: white;
+
+    display: grid;
+    grid-template-columns: 2fr 19fr 19fr;
+    grid-template-rows: 1fr;
+    grid-gap: 2px;
+
+    width: 40vw;
+    height: fit-content;
+
+    font-size: 20px;
+}
+
+.subtitle > * {
+    padding: 15px;
+}
+
+.timestamp {
+    width: 90px !important;
+    background-color: #444444;
+}
+
+.subtitle-text {
+    background-color: #777777;
+}
+
+.translation {
+    background-color: #444444;
+}
+
+#subtitle-header {
+    opacity: 0;
+}
+
+#video-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50vw;
+    height: fit-content;
+    margin: 50px;
+    background-color: gray;
+}

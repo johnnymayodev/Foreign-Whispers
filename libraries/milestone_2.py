@@ -1,7 +1,9 @@
 import os
-import math
 import time
 import pickle
+
+from libraries.common import Common_Methods as cm
+from libraries.common import Common_Variables as cv
 
 import whisper
 import moviepy.editor as mp
@@ -10,32 +12,28 @@ import moviepy.editor as mp
 def main(video_id):
     start = time.time()
 
-    try:
-        os.mkdir("Milestone2/")
-    except FileExistsError:
-        pass
+    cm.create_directory(cv.M2)
 
-    try:
-        os.mkdir(f"Milestone2/{video_id}")
-    except FileExistsError:
-        pass
+    m2_video_path = os.path.join(cv.M2, video_id)
+    cm.create_directory(m2_video_path)
 
-    save_path = f"Milestone2/{video_id}/"
-    video_path = f"Milestone1/{video_id}/"
+    save_path = os.path.join(m2_video_path, cv.AUDIO)
+    pickle_path = os.path.join(m2_video_path, cv.GENERATED_PICKLE_FILE)
+    video_path = os.path.join(cv.M1, video_id, cv.VIDEO)
 
     # check if the video already has generated subtitles
-    if os.path.exists(save_path + "generated_subtitles.pickle"):
+    if os.path.exists(pickle_path):
         print(f"Video {video_id} already has generated subtitles")
-        with open(save_path + "generated_subtitles.pickle", "rb") as f:
+        with open(pickle_path, "rb") as f:
             generated_subtitles = pickle.load(f)
         return ["Success", time.time() - start, generated_subtitles]
 
-    if os.path.exists(save_path + "audio.mp3"):
+    if os.path.exists(save_path):
         print(f"Video {video_id} already has audio")
     else:
         # get the audio from the video
         try:
-            audio = mp.VideoFileClip(video_path + "video.mp4").audio
+            audio = mp.VideoFileClip(video_path).audio
         except Exception as e:
             return [
                 "Failed",
@@ -45,7 +43,7 @@ def main(video_id):
 
         # save the audio to a file
         try:
-            audio.write_audiofile(save_path + "audio.mp3")
+            audio.write_audiofile(save_path)
         except Exception as e:
             return [
                 "Failed",
@@ -63,7 +61,8 @@ def main(video_id):
     # generate subtitles from the audio
     print(f"Generating subtitles for video {video_id}...")
     try:
-        generated_subtitles = model.transcribe("./" + save_path + "audio.mp3")
+        print("save_path:", os.path.join(cv.FILE_PATH, save_path))
+        generated_subtitles = model.transcribe(os.path.join(cv.FILE_PATH, save_path))
     except Exception as e:
         return [
             "Failed",
@@ -72,7 +71,7 @@ def main(video_id):
         ]
 
     try:
-        generated_subtitles = dict_to_dict(generated_subtitles)
+        generated_subtitles = cm.subtitles_to_dict(generated_subtitles)
     except Exception as e:
         return [
             "Failed",
@@ -82,7 +81,7 @@ def main(video_id):
 
     # save the generated subtitles to a file
     try:
-        with open(save_path + "generated_subtitles.pickle", "wb") as f:
+        with open(pickle_path, "wb") as f:
             pickle.dump(generated_subtitles, f)
     except Exception as e:
         return [
@@ -92,44 +91,3 @@ def main(video_id):
         ]
 
     return ["Success", time.time() - start, generated_subtitles]
-
-
-def dict_to_string(dict):
-    string = ""
-    for key, value in dict.items():
-        if key == "text":
-            string += f"{value}\n"  # string += f"{key}: {value}\n"
-    return string
-
-
-def dict_to_dict(dict):
-    important_keys = [
-        "start",
-        "end",
-        "text",
-    ]
-
-    """
-    new_dict = {
-        "0": { # segment id
-            "start": 0.0,
-            "end": 2.0,
-            "text": "Hello"
-        },
-        "1": {
-            "start": 2.0,
-            "end": 4.0,
-            "text": "World"
-        }
-    }
-    """
-
-    new_dict = {}
-
-    for dict in dict["segments"]:
-        new_dict[dict["id"]] = {
-            key: math.ceil(dict[key]) if key in ["start", "end"] else dict[key]
-            for key in important_keys
-        }
-
-    return new_dict

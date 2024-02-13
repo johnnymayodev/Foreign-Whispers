@@ -1,39 +1,33 @@
 import os
 import time
 import pickle
-from copy import deepcopy
-
 import argostranslate.package
 import argostranslate.translate
+from libraries.common import Common_Methods as cm
+from libraries.common import Common_Variables as cv
+from copy import deepcopy
 
 
 def main(video_id, subtitles_in_english, language):
     start = time.time()
 
-    from_code = "en"
+    from_code = cv.POPULAR_LANGUAGES["english"]
 
     translations = deepcopy(subtitles_in_english)
 
-    try:
-        os.mkdir("Milestone3/")
-    except FileExistsError:
-        pass
+    cm.create_directory(cv.M3)
 
-    try:
-        os.mkdir(f"Milestone3/{video_id}/")
-    except FileExistsError:
-        pass
+    video_id_path = os.path.join(cv.M3, video_id)
+    cm.create_directory(video_id_path)
 
-    try:
-        os.mkdir(f"Milestone3/{video_id}/{language}/")
-    except FileExistsError:
-        pass
+    language_path = os.path.join(video_id_path, language)
+    cm.create_directory(language_path)
 
-    if os.path.exists(f"Milestone3/{video_id}/{language}/translated_subtitles.pickle"):
+    pickle_path = os.path.join(language_path, cv.TRANSLATED_PICKLE_FILE)
+
+    if os.path.exists(pickle_path):
         print(f"Video {video_id} already has translated subtitles")
-        with open(
-            f"Milestone3/{video_id}/{language}/translated_subtitles.pickle", "rb"
-        ) as f:
+        with open(pickle_path, "rb") as f:
             translations = pickle.load(f)
         return ["Success", time.time() - start, translations]
 
@@ -74,9 +68,7 @@ def main(video_id, subtitles_in_english, language):
 
     # save the translated subtitles to a file
     try:
-        with open(
-            f"Milestone3/{video_id}/{language}/translated_subtitles.pickle", "wb"
-        ) as f:
+        with open(pickle_path, "wb") as f:
             pickle.dump(translations, f)
     except Exception as e:
         return [

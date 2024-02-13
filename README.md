@@ -5,6 +5,33 @@
 - [animalracer3](https://github.com/AnimalRacer3)
 - [johnnymayodev](https://github.com/johnnymayodev)
 
+## ❗️❗️ HOW TO RUN UI ❗️❗️
+
+1. Install [Flask](https://flask.palletsprojects.com/en/2.0.x/installation/)
+```bash
+pip install Flask
+```
+
+2. Run the UI.py file
+```bash
+python3 UI.py
+```
+
+3. Open the following link in your browser
+```
+http://127.0.0.1:37000/
+```
+* or click [here](http://127.0.0.1:37000/)
+
+4. Enjoy!
+* Note: Refresh the page to go back to the home page
+
+
+## Supported Operating Systems
+
+- Linux
+- MacOS (not recommended)
+
 ## Warning
 
 Running on macOS is not recommended. First, ensure that you have downloaded all the [dependancies](#dependencies) (including FFmpeg).
@@ -56,6 +83,7 @@ pip install argostranslate
 
 
 [coqui TTS](https://github.com/coqui-ai/TTS)
+
 [pydub](http://pydub.com/)
 
 ```bash
@@ -78,22 +106,19 @@ sudo pacman -S ffmpeg
 
 # on MacOS using Homebrew (https://brew.sh/)
 brew install ffmpeg
-
-# on Windows using Chocolatey (https://chocolatey.org/)
-choco install ffmpeg
-
-# on Windows using Scoop (https://scoop.sh/)
-scoop install ffmpeg
 ```
 
-## Usage
-
-Windows
+[ImageMagick](https://imagemagick.org/)
 
 ```bash
-cd \path\to\dir
-python ./main.py
-```
+# Ubuntu or Debian
+sudo apt update && sudo apt install imagemagick
+
+# Homebrew (MacOS)
+brew install imagemagick
+``````
+
+## Usage
 
 MacOS/Linux
 

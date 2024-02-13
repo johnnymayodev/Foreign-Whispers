@@ -1,5 +1,7 @@
 import os
 import time
+from libraries.common import Common_Methods as cm
+from libraries.common import Common_Variables as cv
 
 from pytube import YouTube
 from youtube_transcript_api import YouTubeTranscriptApi
@@ -8,74 +10,72 @@ from youtube_transcript_api import YouTubeTranscriptApi
 def main(video_url):
     start = time.time()
 
-    try:
-        os.mkdir("Milestone1/")
-    except FileExistsError:
-        pass
-
-    try:
-        os.mkdir(f"Milestone1/{YouTube(video_url).video_id}/")
-    except FileExistsError:
-        pass
+    cm.create_directory(cv.M1)
 
     # if the url is a video, download it
     if "watch?v=" in video_url:
         youtube = YouTube(video_url)
-    # if the url is a playlist, download it
+        video_id = youtube.video_id
+        video_id_path = os.path.join(cv.M1, video_id)
+        subtitle_path = os.path.join(video_id_path, cv.SUBTITLES)
+        cm.create_directory(video_id_path)
+
+        save_path = os.path.join(video_id_path, cv.VIDEO)
+    # if the url is a playlist, ask to be sent a video
     else:
         return [
-            "Failed",
+            "Error",
             time.time() - start,
             f"Error: {video_url} is a playlist. Please enter a video url.",
         ]
 
-    if os.path.exists(f"Milestone1/{youtube.video_id}/video.mp4"):
-        print(f"Video {youtube.video_id} already downloaded")
-        return ["Success", time.time() - start, youtube.video_id]
+    if os.path.exists(save_path):
+        print(f"Video {video_id} already downloaded")
+        return ["Success", time.time() - start, video_id]
 
     # if the video is age restricted, skip it
     if youtube.age_restricted:
         return [
-            "Failed",
+            "Error",
             time.time() - start,
-            f"Error: {youtube.video_id} is age restricted.",
+            f"Error: {video_id} is age restricted.",
         ]
 
     # if the video doesn't have subtitles, skip it
     try:
         transcript = YouTubeTranscriptApi.get_transcript(
-            youtube.video_id, languages=["en"]
+            video_id, languages=[cv.POPULAR_LANGUAGES["english"]]
         )
     except:
         return [
-            "Failed",
+            "Error",
             time.time() - start,
-            f"Error: {youtube.video_id} doesn't have subtitles.",
+            f"Error: {video_id} doesn't have subtitles.",
         ]
 
     # if the video doesn't have english subtitles, skip it
     if not transcript:
         return [
-            "Failed",
+            "Error",
             time.time() - start,
-            f"Error: {youtube.video_id} doesn't have english subtitles.",
+            f"Error: {video_id} doesn't have english subtitles.",
         ]
 
     # download the video
     try:
-        print(f"Downloading video {youtube.video_id}...")
+        print(f"Downloading video {video_id}...")
         youtube.streams.filter(file_extension="mp4").first().download(
-            output_path=f"Milestone1/{youtube.video_id}/", filename="video.mp4"
+            output_path=video_id_path, filename=cv.VIDEO
         )
     except Exception as e:
         return [
             "Failed",
             time.time() - start,
-            f"Error: Failed to download video {youtube.video_id}.\n{e}",
+            f"Error: Failed to download video {video_id}.\n{e}",
         ]
 
     # download the subtitles
-    with open(f"Milestone1/{youtube.video_id}/subtitles.txt", "w") as f:
+    with open(subtitle_path, "w") as f:
         f.write(str(transcript))
 
-    return ["Success", time.time() - start, youtube.video_id]
+    return ["Success", time.time() - start, video_id]
